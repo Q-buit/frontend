@@ -48,7 +48,7 @@ export default function HomePage() {
 
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
               <SubscribeForm />
-              <Link className="button secondary" href="/questions/1">
+              <Link className="button secondary" href="/frontend/questions/1">
                 질문 상세 예시 보기
               </Link>
             </div>
@@ -105,7 +105,7 @@ export default function HomePage() {
 
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
               <SubscribeForm />
-              <Link className="button secondary" href="/questions/1">
+              <Link className="button secondary" href="/frontend/questions/1">
                 질문 상세 예시 보기
               </Link>
             </div>

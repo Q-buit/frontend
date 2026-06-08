@@ -1,12 +1,12 @@
 import { AnswerPractice } from "@/components/answer-practice";
-import { getQuestionDetail } from "@/lib/api";
+import { getQuestionDetail, type Track } from "@/lib/api";
 
-type Props = {
-  params: Promise<{ id: string }>;
+type QuestionDetailPageProps = {
+  id: string;
+  track: Track;
 };
 
-export default async function QuestionDetailPage({ params }: Props) {
-  const { id } = await params;
+export async function QuestionDetailPage({ id, track }: QuestionDetailPageProps) {
   const question = await getQuestionDetail(id);
 
   return (
@@ -33,7 +33,7 @@ export default async function QuestionDetailPage({ params }: Props) {
           </div>
 
           <section className="card stack-md">
-            <span className="pill">꼬리 질문</span>
+            <span className="pill">{track === "frontend" ? "프론트엔드 질문" : "백엔드 질문"}</span>
             <ul style={{ margin: 0, paddingLeft: 20, lineHeight: 1.8 }}>
               {question.followUps.map((followUp) => (
                 <li key={followUp}>{followUp}</li>
