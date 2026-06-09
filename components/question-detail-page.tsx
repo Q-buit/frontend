@@ -7,7 +7,7 @@ type QuestionDetailPageProps = {
 };
 
 export async function QuestionDetailPage({ id, track }: QuestionDetailPageProps) {
-  const question = await getQuestionDetail(id);
+  const question = await getQuestionDetail(track, id);
 
   return (
     <main>
@@ -15,7 +15,7 @@ export async function QuestionDetailPage({ id, track }: QuestionDetailPageProps)
         <div className="container stack-lg">
           <section className="card stack-md">
             <span className="pill">질문</span>
-            <h2 style={{ margin: 0, fontSize: 28, lineHeight: 1.4 }}>{question.question}</h2>
+            <h2 style={{ margin: 0, fontSize: 28, lineHeight: 1.4 }}>{question.questionText}</h2>
           </section>
 
           <AnswerPractice defaultFramework={question.recommendedFramework} />
@@ -36,7 +36,10 @@ export async function QuestionDetailPage({ id, track }: QuestionDetailPageProps)
             <span className="pill">{track === "frontend" ? "프론트엔드 질문" : "백엔드 질문"}</span>
             <ul style={{ margin: 0, paddingLeft: 20, lineHeight: 1.8 }}>
               {question.followUps.map((followUp) => (
-                <li key={followUp}>{followUp}</li>
+                <li key={followUp.question}>
+                  <strong style={{ display: "block", marginBottom: 6 }}>{followUp.question}</strong>
+                  <span className="muted">{followUp.answer}</span>
+                </li>
               ))}
             </ul>
           </section>
