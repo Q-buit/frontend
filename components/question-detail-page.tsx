@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { AnswerPractice } from "@/components/answer-practice";
 import { getQuestionDetail, type Track } from "@/lib/api";
 
@@ -32,17 +33,33 @@ export async function QuestionDetailPage({ id, track }: QuestionDetailPageProps)
             </section>
           </div>
 
-          <section className="card stack-md">
-            <span className="pill">{track === "frontend" ? "프론트엔드 질문" : "백엔드 질문"}</span>
-            <ul style={{ margin: 0, paddingLeft: 20, lineHeight: 1.8 }}>
-              {question.followUps.map((followUp) => (
-                <li key={followUp.question}>
-                  <strong style={{ display: "block", marginBottom: 6 }}>{followUp.question}</strong>
-                  <span className="muted">{followUp.answer}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
+          {question.followUps.length > 0 ? (
+            <section className="card stack-md">
+              <span className="pill">꼬리 질문</span>
+              <ul style={{ margin: 0, paddingLeft: 20, lineHeight: 1.8 }}>
+                {question.followUps.map((followUp) => (
+                  <li key={followUp.id}>
+                    <Link
+                      href={`/${followUp.track}/questions/${followUp.questionOrder}`}
+                      style={{
+                        display: "block",
+                        marginBottom: 6,
+                        color: "inherit",
+                        fontWeight: 600,
+                        textDecoration: "none",
+                      }}
+                    >
+                      {followUp.questionText}
+                    </Link>
+                    <span className="muted">
+                      {followUp.track === "frontend" ? "프론트엔드" : "백엔드"} ·{" "}
+                      {followUp.recommendedFramework} · 질문 {followUp.questionOrder}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
         </div>
       </section>
     </main>

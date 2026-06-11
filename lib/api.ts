@@ -1,9 +1,14 @@
 export type Track = "frontend" | "backend";
 export type QuestionType = "concept" | "experience";
 export type AnswerFramework = "PREP" | "STAR";
-export type FollowUp = {
-  question: string;
-  answer: string;
+export type FollowUpQuestion = {
+  id: number;
+  track: Track;
+  questionOrder: number;
+  title: string;
+  questionText: string;
+  questionType: QuestionType;
+  recommendedFramework: AnswerFramework;
 };
 
 export type QuestionDetail = {
@@ -16,7 +21,7 @@ export type QuestionDetail = {
   questionText: string;
   conceptSummary: string;
   modelAnswer: string;
-  followUps: FollowUp[];
+  followUps: FollowUpQuestion[];
   questionOrder: number;
 };
 
