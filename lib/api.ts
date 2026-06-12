@@ -47,6 +47,34 @@ export type CreateSubscriptionResponse = {
   };
 };
 
+export type SubscriptionStatus = "pending" | "active" | "dormant" | "unsubscribed";
+
+export type SubscriberTrack = {
+  id: number;
+  subscriberId: number;
+  track: Track;
+  status: SubscriptionStatus;
+  currentQuestionOrder: number;
+  lastClickedAt: string | null;
+  activatedAt: string | null;
+  dormantAt: string | null;
+  unsubscribedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type SubscriptionManageData = {
+  subscriber: {
+    id: number;
+    email: string;
+    status: SubscriptionStatus;
+    consentToReceive: boolean;
+    createdAt: string;
+    updatedAt: string;
+  };
+  tracks: SubscriberTrack[];
+};
+
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:4000";
 
 export async function getQuestionDetail(track: Track, questionOrder: string): Promise<QuestionDetail> {
@@ -88,4 +116,40 @@ export async function createSubscription(
   }
 
   return response.json();
+}
+
+export async function getSubscriptionManageData(token: string): Promise<SubscriptionManageData> {
+  const response = await fetch(`${API_BASE_URL}/subscriptions/manage?token=${encodeURIComponent(token)}`, {
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error("구독 관리 정보를 불러오지 못했습니다.");
+  }
+
+  const result = (await response.json()) as {
+    data: SubscriptionManageData;
+  };
+
+  return result.data;
+}
+
+export async function unsubscribeSubscription(token: string): Promise<SubscriptionManageData> {
+  const response = await fetch(`${API_BASE_URL}/subscriptions/unsubscribe`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token }),
+  });
+
+  if (!response.ok) {
+    throw new Error("구독을 취소하지 못했습니다.");
+  }
+
+  const result = (await response.json()) as {
+    data: SubscriptionManageData;
+  };
+
+  return result.data;
 }

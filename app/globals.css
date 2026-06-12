@@ -277,6 +277,17 @@ main {
   background: var(--surface);
 }
 
+.subscription-track-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
 .modal-backdrop {
   position: fixed;
   inset: 0;
