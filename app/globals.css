@@ -288,28 +288,6 @@ main {
   background: var(--surface);
 }
 
-.admin-question-list {
-  display: grid;
-  gap: 14px;
-}
-
-.admin-question-item {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 18px;
-  align-items: center;
-  padding: 18px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--surface);
-}
-
-.admin-question-meta {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -408,7 +386,4 @@ main {
     grid-template-columns: 1fr;
   }
 
-  .admin-question-item {
-    grid-template-columns: 1fr;
-  }
 }
